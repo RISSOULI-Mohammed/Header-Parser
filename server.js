@@ -15,15 +15,14 @@ app.use(express.static('public'));
 app.get("/", function (request, response) {
   //response.sendFile(__dirname + '/views/index.html');
   var ip = request.connection.remoteAddress;
-  var lang = request.headers["accept-language"];
-  var os = request.headers['user-agent'];
+  var lang = request.headers["accept-language"].split(",")[0];
+  var os = request.headers['user-agent'].split("(")[1].split(")")[0];
   var resp = {
     "ipaddress": ip,
     "language": lang,
     "software": os
   };
-  response.end(ip);
-  //response.end(JSON.stringify(resp));
+  response.end(JSON.stringify(resp));
 });
 
 //app.get("/dreams", function (request, response) {
