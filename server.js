@@ -14,7 +14,16 @@ app.use(express.static('public'));
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function (request, response) {
   //response.sendFile(__dirname + '/views/index.html');
-  response.end(JSON.stringify(request.connection));
+  var ip = request.connection.remoteAddress;
+  var lang = request.headers["accept-language"];
+  var os = request.headers['user-agent'];
+  var resp = {
+    "ipaddress": ip,
+    "language": lang,
+    "software": os
+  };
+  response.end(ip);
+  //response.end(JSON.stringify(resp));
 });
 
 //app.get("/dreams", function (request, response) {
